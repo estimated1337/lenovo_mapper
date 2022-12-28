@@ -39,6 +39,7 @@ NTSTATUS DriverMapper::MapDriver(const std::string& driver_path)
 
 	if (!hasInit)
 	{
+		lm.Shutdown();
 		return STATUS_UNSUCCESSFUL;
 	}
 
@@ -48,6 +49,7 @@ NTSTATUS DriverMapper::MapDriver(const std::string& driver_path)
 	{
 		std::cout << "invalid file!" << std::endl;
 
+		lm.Shutdown();
 		return STATUS_UNSUCCESSFUL;
 	}
 
@@ -61,6 +63,7 @@ NTSTATUS DriverMapper::MapDriver(const std::string& driver_path)
 	{
 		std::cout << "invalid platform!" << std::endl;
 
+		lm.Shutdown();
 		return STATUS_UNSUCCESSFUL;
 	}
 
@@ -165,6 +168,7 @@ NTSTATUS DriverMapper::MapDriver(const std::string& driver_path)
 
 						VirtualFree(mapped_driver_image, aligned_image_size, MEM_RELEASE);
 
+						lm.Shutdown();
 						return STATUS_UNSUCCESSFUL;
 					}
 
@@ -183,6 +187,7 @@ NTSTATUS DriverMapper::MapDriver(const std::string& driver_path)
 
 						VirtualFree(mapped_driver_image, aligned_image_size, MEM_RELEASE);
 
+						lm.Shutdown();
 						return STATUS_UNSUCCESSFUL;
 					}
 
